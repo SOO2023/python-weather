@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="author" content="Samson Olaide">
+        <meta name="description" content="A city weather web application">
+        <link rel="icon" href="{{url_for('static', filename = 'weather_icon.png')}} "type="image/png">
+        <link rel="stylesheet" href="{{url_for('static', filename='styles.css')}}">
+        <!-- <link rel="stylesheet" href="/static/styles.css" type="text/css"> -->
+        <title>{{ city }}, {{ country }} Weather</title>
+    </head>
+    <body>
+        <h1>
+            Get City Weather⛅😎
+        </h1>
+        <form action="/weather">
+            <input id="city" name="city" type="text" placeholder="Enter the name of a city!">
+            <button type="submit">Search</button>
+        </form>
+        <h3>
+            The current weather in {{ city }}, {{ country }}.
+        </h3>
+        <p>
+            The temp in {{ city }} is: {{ temp }}&deg;C 🌡️
+        </p>  
+        <p>
+            The weather in {{ city }} feels like: {{ feels_like}} ⛅ 🌦️
+        </p>       
+    </body>
+</html>
