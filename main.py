@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request
 from weather import get_city_weather
 import random
+from waitress import serve
 
 
 app = Flask(__name__)
@@ -14,16 +15,17 @@ def index():
 
 @app.route('/weather')
 def city_weather():
-    
+
     city = request.args.get('city')
-    
+
     if not bool(city.strip()):
-        nig_cities = ['Lagos', 'Abuja', 'Ogun', 'Kano', 'Kaduna', 'Gombe', 'Kwara', 'Oyo', 'Edo', 'Zamfara', 'Delta', 'Enugu']
-        
+        nig_cities = ['Lagos', 'Abuja', 'Ogun', 'Kano', 'Kaduna',
+                      'Gombe', 'Kwara', 'Oyo', 'Edo', 'Zamfara', 'Delta', 'Enugu']
+
         city = random.choice(nig_cities)
-        
+
     weather_data = get_city_weather(city)
-    
+
     if weather_data['cod'] == '404':
         return render_template('error.html')
 
@@ -33,8 +35,8 @@ def city_weather():
         country=weather_data['sys']['country'],
         temp=weather_data['main']['temp'],
         feels_like=weather_data['weather'][0]['description']
-        )       
+    )
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    serve(app, host="0.0.0.0", port="8000")
